@@ -60,6 +60,11 @@ version = "0.1.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
+name = "dbg"
+version = "0.1.0"
+source = "git+https://github.com/ngtkana/ac-adapter-rs.git#9e0c17202946af4aeaff4f2f13d7411bdca6403f"
+
+[[package]]
 name = "either"
 version = "1.5.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -445,6 +450,7 @@ dependencies = [
  "ascii 1.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "bitset-fixed 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "cli_test_dir 0.1.7 (registry+https://github.com/rust-lang/crates.io-index)",
+ "dbg 0.1.0 (git+https://github.com/ngtkana/ac-adapter-rs.git)",
  "either 1.5.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "fixedbitset 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "getrandom 0.1.14 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -580,6 +586,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 "checksum bitset-fixed 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)" = "a8cc868e96ba5c32ffae4d42bf2940ca7fca317dcef3f19b6d7de66b6885abff"
 "checksum cfg-if 0.1.10 (registry+https://github.com/rust-lang/crates.io-index)" = "4785bdd1c96b2a846b2bd7cc02e86b6b3dbf14e7e53446c4f54c92a361040822"
 "checksum cli_test_dir 0.1.7 (registry+https://github.com/rust-lang/crates.io-index)" = "2bc63338a59538d4f4b767dfb6082e4d26736aadb5100894b76039a04d6ad519"
+"checksum dbg 0.1.0 (git+https://github.com/ngtkana/ac-adapter-rs.git)" = "<none>"
 "checksum either 1.5.3 (registry+https://github.com/rust-lang/crates.io-index)" = "bb1f6b1ce1c140482ea30ddd3335fc0024ac7ee112895426e0a629a6c20adfe3"
 "checksum fixedbitset 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)" = "37ab347416e802de484e4d03c7316c48f1ecb56574dfd4a46a80f173ce1de04d"
 "checksum generic-array 0.13.2 (registry+https://github.com/rust-lang/crates.io-index)" = "0ed1e761351b56f54eb9dcd0cfaca9fd0daecf93918e1cfc01c8a3d26ee7adcd"
