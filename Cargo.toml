@@ -61,3 +61,4 @@ whiteread = "=0.5.0"
 
 [dev-dependencies]
 cli_test_dir = "0.1"
+test-case = "1.1.0"
