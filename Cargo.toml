@@ -13,12 +13,7 @@ path = "src/main.rs"
 [profile.release]
 debug = true
 
-[features]
-default = ["dbg"]
-
 [dependencies]
-dbg = { git = "https://github.com/ngtkana/ac-adapter-rs.git", optional = true }
-
 alga = "=0.9.3"
 ascii = "=1.0.0"
 bitset-fixed = "=0.1.0"

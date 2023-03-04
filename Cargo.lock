@@ -75,11 +75,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2bc63338a59538d4f4b767dfb6082e4d26736aadb5100894b76039a04d6ad519"
 
 [[package]]
-name = "dbg"
-version = "0.1.0"
-source = "git+https://github.com/ngtkana/ac-adapter-rs.git#021fa1bed9742fb0eae2629d5cf1befb43f5a0d2"
-
-[[package]]
 name = "either"
 version = "1.5.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -516,7 +511,6 @@ dependencies = [
  "ascii",
  "bitset-fixed",
  "cli_test_dir",
- "dbg",
  "either",
  "fixedbitset",
  "getrandom",
