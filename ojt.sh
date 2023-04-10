@@ -23,19 +23,23 @@ while [[ $# -gt 0 ]]; do
 done
 
 if [ $release -eq 1 ]; then
+    bin='./target/release/main'
     if [ $latest -eq 1 ]; then
-        args='run --release'
+        args='build --release'
     else
-        args='+1.42 run --release'
+        args='+1.42 build --release'
     fi
 else
+    bin='./target/debug/main'
     if [ $latest -eq 1 ]; then
-        args='run'
+        args='build'
     else
-        args='+1.42 run'
+        args='+1.42 build'
     fi
 fi
 
-echo "args=\"${args}\""
+echo -e "args=\"${args}\""
+echo -e "bin=\"${bin}\""
+echo ""
 
-xclip -o -selection clipboard | cargo ${args}
+cargo ${args} && oj t -c ${bin}
