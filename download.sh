@@ -7,16 +7,31 @@ function show_help() {
     echo -e "problem_id:\t(ex. c)"
 }
 
-if [ $# -ne 2 ]; then
+if [[ $# == 0 ]]; then
     show_help
     exit 1
 fi
 
-contest_id="${1}"
-problem_id="${2}"
-
-if [ -d ./test ]; then
-    rm -r ./test
+if [[ "${1}" == "https://"* ]]; then
+    if [[ $# != 1 ]]; then
+        show_help
+        exit 1
+    fi
+    if [[ -d ./test ]]; then
+        rm -r ./test
+    fi
+    url="${1}"
+else
+    if [[ $# != 2 ]]; then
+        show_help
+        exit 1
+    fi
+    if [[ -d ./test ]]; then
+        rm -r ./test
+    fi
+    contest_id="${1}"
+    problem_id="${2}"
+    url=$(acc url "${1}" "${1}_${2}")
 fi
 
-acc url "${1}" "${1}_${2}" | oj d $(cat)
+oj d "${url}"
