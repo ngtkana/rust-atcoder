@@ -2,7 +2,7 @@
 set -euC
 
 function print_help() {
-    echo -e "usage: ${0} [--release] [--latest]"
+    echo -e "usage: ${0} [--release]"
 }
 
 release=0
@@ -12,9 +12,6 @@ while [[ $# -gt 0 ]]; do
         '--release')
             release=1
             ;;
-        '--latest')
-            latest=1
-            ;;
         *) echo "Unknown option $1";
             print_help
             exit 1;;
@@ -23,17 +20,9 @@ while [[ $# -gt 0 ]]; do
 done
 
 if [ $release -eq 1 ]; then
-    if [ $latest -eq 1 ]; then
-        args='run --release'
-    else
-        args='+1.42 run --release'
-    fi
+    args='run --release'
 else
-    if [ $latest -eq 1 ]; then
-        args='run'
-    else
-        args='+1.42 run'
-    fi
+    args='run'
 fi
 
 echo "args=\"${args}\""

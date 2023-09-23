@@ -2,7 +2,7 @@
 set -euC
 
 function print_help() {
-    echo -e "usage: ${0} [--release] [--latest]"
+    echo -e "usage: ${0} [--release]"
 }
 
 release=0
@@ -11,9 +11,6 @@ while [[ $# -gt 0 ]]; do
     case $1 in
         '--release')
             release=1
-            ;;
-        '--latest')
-            latest=1
             ;;
         *) echo "Unknown option $1";
             print_help
@@ -24,18 +21,10 @@ done
 
 if [ $release -eq 1 ]; then
     bin='./target/release/main'
-    if [ $latest -eq 1 ]; then
-        args='build --release'
-    else
-        args='+1.42 build --release'
-    fi
+    args='build --release'
 else
     bin='./target/debug/main'
-    if [ $latest -eq 1 ]; then
-        args='build'
-    else
-        args='+1.42 build'
-    fi
+    args='build'
 fi
 
 echo -e "args=\"${args}\""
