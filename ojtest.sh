@@ -32,4 +32,4 @@ echo -e "args=\"${args}\""
 echo -e "bin=\"${bin}\""
 echo ""
 
-cargo "${args}" && oj t -c "${bin}"
+cargo ${args} && oj t -c "${bin}"

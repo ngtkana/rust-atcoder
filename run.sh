@@ -44,4 +44,4 @@ fi
 
 echo -e "args=\"${args}\""
 
-paste | cargo "${args}"
+paste | cargo ${args}

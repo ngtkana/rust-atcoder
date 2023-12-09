@@ -818,6 +818,7 @@ dependencies = [
  "amplify",
  "amplify_derive",
  "amplify_num",
+ "approx 0.5.1",
  "argio",
  "ascii",
  "az",
