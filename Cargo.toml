@@ -7,8 +7,12 @@ authors = ["ngtkana <ngtkana@gmail.com>"]
 edition = "2021"
 
 [[bin]]
-name = "main"
-path = "src/main.rs"
+name = "solve"
+path = "src/solve.rs"
+
+[[bin]]
+name = "gen"
+path = "src/gen.rs"
 
 [profile.release]
 debug = true

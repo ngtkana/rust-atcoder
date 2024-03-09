@@ -10,7 +10,7 @@ is_wsl() {
 }
 
 if is_wsl; then
-	clip.exe <src/main.rs
+	clip.exe < src/solve.rs
 else
-	xclip -selection clipboard <src/main.rs
+	xclip -selection clipboard < src/solve.rs
 fi

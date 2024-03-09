@@ -1,9 +1,5 @@
 #! /usr/bin/bash
-set -euC
-
-function print_help() {
-	echo -e "usage: ${0} [--release]"
-}
+set -eu
 
 is_wsl() {
 	case "$(uname -r)" in
@@ -36,12 +32,8 @@ while [[ $# -gt 0 ]]; do
 	shift
 done
 
-if [ $release -eq 1 ]; then
-	args='run --release'
-else
-	args='run'
-fi
-
-echo -e "args=\"${args}\""
-
-paste | cargo ${args}
+cargo build --release --bin gen
+tmpfile=$(mktemp)
+trap "rm $tmpfile" 0
+paste > $tmpfile
+time ./target/release/gen < $tmpfile
