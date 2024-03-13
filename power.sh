@@ -18,4 +18,4 @@ paste() {
 }
 
 cargo build --release
-paste | ./target/release/gen | paste | ./target/release/solve
+paste | ./target/release/gen | ./target/release/solve

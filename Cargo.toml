@@ -14,6 +14,10 @@ path = "src/solve.rs"
 name = "gen"
 path = "src/gen.rs"
 
+[[bin]]
+name = "vis"
+path = "src/vis.rs"
+
 [profile.release]
 debug = true
 
