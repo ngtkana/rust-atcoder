@@ -5,6 +5,7 @@ name = "rust-atcoder"
 version = "0.1.0"
 authors = ["ngtkana <ngtkana@gmail.com>"]
 edition = "2021"
+default-run = "solve"
 
 [[bin]]
 name = "solve"
