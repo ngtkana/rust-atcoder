@@ -23,7 +23,7 @@ path = "src/vis.rs"
 debug = true
 
 [dependencies]
-# ac-library-rs = "0.1.1"
+ac-library-rs = "0.1.1"
 once_cell = "1.18.0"
 static_assertions = "1.1.0"
 varisat = "0.2.2"
@@ -81,7 +81,7 @@ either = "1.8.1"
 # im-rc = "15.1.0"
 fixedbitset = "0.4.2"
 bitset-fixed = "0.1.0"
-proconio = "0.4.5"
+proconio = { version = "0.4.5", features = ["derive"] }
 text_io = "0.1.12"
 rustc-hash = "1.1.0"
 smallvec = "1.11.0"
