@@ -1,8 +1,8 @@
 #! /usr/bin/bash
 set -eu
 
-cargo build --bin solve
+cargo build
 tmpfile=$(mktemp)
 trap "rm $tmpfile" 0
 xclip -o -selection clipboard > $tmpfile
-time ./target/debug/solve < $tmpfile
+time ./target/debug/rust-atcoder < $tmpfile
