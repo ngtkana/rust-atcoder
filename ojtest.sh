@@ -1,4 +1,3 @@
-#! /usr/bin/bash
 set -euC
 
 cargo build --release --bin solve

@@ -1,4 +1,3 @@
-#! /usr/bin/bash
 set -euC
 
 function show_help() {

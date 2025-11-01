@@ -74,6 +74,7 @@ rustc-hash = "1.1.0"
 smallvec = "1.11.0"
 approx = "0.5.1"
 rstest = "0.18.2"
+procon-lg = { git = "https://github.com/ngtkana/procon-lg.git" }
 
 [dev-dependencies]
 cli_test_dir = "0.1"
