@@ -1,4 +1,4 @@
 set -euC
 
-cargo build --release --bin solve
-oj t -c ./target/release/solve
+cargo build --release
+oj t -c ./target/release/rust-atcoder

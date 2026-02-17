@@ -1,3 +1,3 @@
 set -euC
 
-cat src/solve.rs | xsel -bi
+cat src/main.rs | clip.exe
