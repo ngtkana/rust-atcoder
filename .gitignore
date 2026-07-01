@@ -2,7 +2,6 @@
 **/*.rs.bk
 **/*~
 /work/
-/src/
 /test/
 /note.txt
 /in.txt
