@@ -18,10 +18,14 @@ pub fn make_horizontal<T: std::fmt::Display>(data: &[T]) -> tabled::Table {
     table
 }
 
-pub struct Chronological {
+pub fn make_table_builder<T: std::fmt::Display>(width: usize) -> TableBuilder {
+    TableBuilder::new(width)
+}
+
+pub struct TableBuilder {
     builder: tabled::builder::Builder,
 }
-impl Chronological {
+impl TableBuilder {
     pub fn new(width: usize) -> Self {
         let mut builder = tabled::builder::Builder::new();
         builder.push_record((0..width).map(|i| i.to_string()));
