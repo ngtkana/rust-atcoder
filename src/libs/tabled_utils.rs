@@ -18,10 +18,6 @@ pub fn make_horizontal<T: std::fmt::Display>(data: &[T]) -> tabled::Table {
     table
 }
 
-pub fn make_table_builder<T: std::fmt::Display>(width: usize) -> TableBuilder {
-    TableBuilder::new(width)
-}
-
 pub struct TableBuilder {
     builder: tabled::builder::Builder,
 }
