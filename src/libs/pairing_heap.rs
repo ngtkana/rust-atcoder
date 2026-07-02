@@ -8,6 +8,7 @@ pub enum HeapType {
     Max = 1,
 }
 
+#[derive(Clone)]
 pub struct Heap<T: Ord, const HT: usize> {
     root: Option<NonNull<Node<T, HT>>>,
 }
@@ -54,6 +55,34 @@ impl<T: Ord, const HT: usize> Heap<T, HT> {
 
     pub fn peek(&self) -> Option<&T> {
         unsafe { Some(&(*self.root?.as_ptr()).item) }
+    }
+
+    pub fn append(&mut self, other: Self) {
+        self.root = match (self.root.take(), other.root) {
+            (a, None) => a,
+            (None, b) => b,
+            (Some(a), Some(b)) => Some(unsafe { Node::meld(a, b) }),
+        };
+        std::mem::forget(other);
+    }
+
+    pub fn collect(&self) -> Vec<&T> {
+        let mut result = Vec::new();
+        if let Some(x) = self.root {
+            unsafe {
+                let mut stack = vec![x];
+                while let Some(node) = stack.pop() {
+                    result.push(&node.as_ref().item);
+                    if let Some(r) = node.as_ref().right {
+                        stack.push(r);
+                    }
+                    if let Some(l) = node.as_ref().left {
+                        stack.push(l);
+                    }
+                }
+            }
+        }
+        result
     }
 }
 

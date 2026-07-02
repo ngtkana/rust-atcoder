@@ -6,6 +6,7 @@ pub enum HeapType {
     Max = 1,
 }
 
+#[derive(Clone)]
 pub struct Heap<T: Ord, const HT: usize> {
     items: Vec<T>,
 }
