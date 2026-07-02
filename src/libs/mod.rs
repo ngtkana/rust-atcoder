@@ -1,4 +1,5 @@
 pub mod ascii_utils;
+pub mod binary_heap;
 pub mod counting_sort;
 pub mod fp;
 pub mod pairing_heap;
