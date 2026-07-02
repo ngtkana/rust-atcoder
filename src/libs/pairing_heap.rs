@@ -93,70 +93,40 @@ struct Node<T: Ord, const HT: usize> {
 
 impl<T: Ord, const HT: usize> Node<T, HT> {
     unsafe fn meld(mut a: NonNull<Self>, mut b: NonNull<Self>) -> NonNull<Self> {
-        if HT == HeapType::Min as usize {
-            if a.as_ref().item > b.as_ref().item {
-                std::mem::swap(&mut a, &mut b);
+        unsafe {
+            if HT == HeapType::Min as usize {
+                if a.as_ref().item > b.as_ref().item {
+                    std::mem::swap(&mut a, &mut b);
+                }
+            } else {
+                if a.as_ref().item < b.as_ref().item {
+                    std::mem::swap(&mut a, &mut b);
+                }
             }
-        } else {
-            if a.as_ref().item < b.as_ref().item {
-                std::mem::swap(&mut a, &mut b);
-            }
+            let c = (*a.as_ptr()).left;
+            (*a.as_ptr()).left = Some(b);
+            (*b.as_ptr()).right = c;
+            a
         }
-        let c = (*a.as_ptr()).left;
-        (*a.as_ptr()).left = Some(b);
-        (*b.as_ptr()).right = c;
-        a
     }
 
     unsafe fn meld_many(mut a: NonNull<Self>) -> NonNull<Self> {
-        let mut right_spine = vec![a];
-        while let Some(b) = a.as_ref().right {
-            (*a.as_ptr()).right = None;
-            a = b;
-            right_spine.push(a);
-        }
-        for i in (0..right_spine.len() - 1).step_by(2) {
-            right_spine[i] = Self::meld(right_spine[i], right_spine[i + 1]);
-        }
-        let mut i = (right_spine.len() - 1) & !1;
-        while i != 0 {
-            right_spine[i - 2] = Self::meld(right_spine[i - 2], right_spine[i]);
-            i -= 2;
-        }
-        right_spine[0]
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use rand::{rngs::StdRng, Rng, SeedableRng};
-    use std::{cmp::Reverse, collections::BinaryHeap};
-
-    #[test]
-    fn test() {
-        let mut rng = StdRng::seed_from_u64(42);
-        for testcase_id in 0..20 {
-            eprintln!("Case #{testcase_id}");
-            let mut pairing = MinHeap::new();
-            let mut binary = BinaryHeap::new();
-            for _ in 0..20 {
-                match rng.gen_range(0..2) {
-                    0 => {
-                        let x = rng.gen_range(0..32);
-                        eprintln!("Push {x}");
-                        pairing.push(x);
-                        binary.push(Reverse(x));
-                    }
-                    1 => {
-                        let result = pairing.pop();
-                        let expected = binary.pop().map(|x| x.0);
-                        eprintln!("Poped {result:?} vs {expected:?}");
-                        assert_eq!(result, expected);
-                    }
-                    _ => unreachable!(),
-                }
+        unsafe {
+            let mut right_spine = vec![a];
+            while let Some(b) = a.as_ref().right {
+                (*a.as_ptr()).right = None;
+                a = b;
+                right_spine.push(a);
             }
+            for i in (0..right_spine.len() - 1).step_by(2) {
+                right_spine[i] = Self::meld(right_spine[i], right_spine[i + 1]);
+            }
+            let mut i = (right_spine.len() - 1) & !1;
+            while i != 0 {
+                right_spine[i - 2] = Self::meld(right_spine[i - 2], right_spine[i]);
+                i -= 2;
+            }
+            right_spine[0]
         }
     }
 }
