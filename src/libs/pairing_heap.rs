@@ -57,13 +57,12 @@ impl<T: Ord, const HT: usize> Heap<T, HT> {
         unsafe { Some(&(*self.root?.as_ptr()).item) }
     }
 
-    pub fn append(&mut self, other: Self) {
-        self.root = match (self.root.take(), other.root) {
+    pub fn append(&mut self, other: &mut Self) {
+        self.root = match (self.root.take(), other.root.take()) {
             (a, None) => a,
             (None, b) => b,
             (Some(a), Some(b)) => Some(unsafe { Node::meld(a, b) }),
         };
-        std::mem::forget(other);
     }
 
     pub fn collect(&self) -> Vec<&T> {
