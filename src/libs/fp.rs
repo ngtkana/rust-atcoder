@@ -1,15 +1,19 @@
-pub fn new<const P: u64>(value: u64) -> FpBase<P> {
+pub fn fpu<const P: u64>(value: usize) -> FpBase<P> {
+    FpBase::new(value as u64)
+}
+
+pub fn fp<const P: u64>(value: u64) -> FpBase<P> {
     FpBase::new(value)
 }
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct FpBase<const P: u64> {
     value: u64,
 }
 
 impl<const P: u64> FpBase<P> {
     pub fn new(value: u64) -> Self {
-        Self { value }
+        Self { value: value % P }
     }
 }
 
@@ -64,6 +68,20 @@ impl<const P: u64> std::ops::Mul for FpBase<P> {
     fn mul(self, rhs: Self) -> Self::Output {
         Self {
             value: self.value * rhs.value % P,
+        }
+    }
+}
+
+impl<const P: u64> std::ops::Neg for FpBase<P> {
+    type Output = Self;
+
+    fn neg(self) -> Self::Output {
+        if self.value == 0 {
+            self
+        } else {
+            Self {
+                value: P - self.value,
+            }
         }
     }
 }
