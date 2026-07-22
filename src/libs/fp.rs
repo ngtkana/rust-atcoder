@@ -72,6 +72,12 @@ impl<const P: u64> std::ops::Mul for FpBase<P> {
     }
 }
 
+impl<const P: u64> std::ops::MulAssign for FpBase<P> {
+    fn mul_assign(&mut self, rhs: Self) {
+        *self = *self * rhs;
+    }
+}
+
 impl<const P: u64> std::ops::Neg for FpBase<P> {
     type Output = Self;
 
