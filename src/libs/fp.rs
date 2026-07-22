@@ -170,6 +170,7 @@ impl<'a, const P: u64> std::iter::Sum<&'a Self> for FpBase<P> {
 // ==========================================
 // FFT
 // ==========================================
+const TWIDDLES_LEN: usize = 64;
 pub const fn find_primitive_root<const P: u64>() -> FpBase<P> {
     let mut x = fp(2);
     while x.value != P {
@@ -180,10 +181,11 @@ pub const fn find_primitive_root<const P: u64>() -> FpBase<P> {
     }
     panic!("primitive root not found");
 }
-const fn build_twiddles<const P: u64>(root: FpBase<P>) -> [FpBase<P>; TRWID_LEN] {
-    let mut result = [fp(0); TRWID_LEN];
-    let mut i = FpParams::<P>::K as usize - 1;
-    result[i] = root.pow((P - 1) >> FpParams::<P>::K);
+const fn build_twiddles<const P: u64>(root: FpBase<P>) -> [FpBase<P>; TWIDDLES_LEN] {
+    let mut result = [fp(0); TWIDDLES_LEN];
+    let k = (P - 1).trailing_zeros();
+    let mut i = k as usize - 1;
+    result[i] = root.pow((P - 1) >> k);
     while i != 0 {
         result[i - 1] = fp(result[i].value * result[i].value % P);
         i -= 1;
@@ -191,18 +193,10 @@ const fn build_twiddles<const P: u64>(root: FpBase<P>) -> [FpBase<P>; TRWID_LEN]
     result
 }
 
-struct FpParams<const P: u64>;
-const TRWID_LEN: usize = 64;
-impl<const P: u64> FpParams<P> {
-    const K: u32 = (P - 1).trailing_zeros();
-    const TWID_FORWARD: [FpBase<P>; TRWID_LEN] = build_twiddles(find_primitive_root());
-    const TWID_BACKWARD: [FpBase<P>; TRWID_LEN] = build_twiddles(find_primitive_root().inv());
-}
-
 pub fn fft<const P: u64>(items: &mut [FpBase<P>]) {
     assert!(items.len().is_power_of_two());
-    assert!(items.len().trailing_zeros() <= FpParams::<P>::K);
-    let w = FpParams::<P>::TWID_FORWARD;
+    assert!(items.len().trailing_zeros() <= (P - 1).trailing_zeros());
+    let w = const { build_twiddles(find_primitive_root()) };
     let mut n = items.len();
     while n != 1 {
         let w = w[n.trailing_zeros() as usize];
@@ -220,8 +214,8 @@ pub fn fft<const P: u64>(items: &mut [FpBase<P>]) {
 
 pub fn ifft<const P: u64>(items: &mut [FpBase<P>]) {
     assert!(items.len().is_power_of_two());
-    assert!(items.len().trailing_zeros() <= FpParams::<P>::K);
-    let w = FpParams::<P>::TWID_BACKWARD;
+    assert!(items.len().trailing_zeros() <= (P - 1).trailing_zeros());
+    let w = const { build_twiddles(find_primitive_root().inv()) };
     let mut n = 2;
     while n <= items.len() {
         let w = w[n.trailing_zeros() as usize];
